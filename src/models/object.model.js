@@ -15,6 +15,10 @@ const schema = mongoose.Schema({
     required: true,
     maxLength: 480,
   },
+  category: {
+    type: String,
+    required: true,
+  },
   where: {
     type: String,
     required: true,
