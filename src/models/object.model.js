@@ -12,8 +12,7 @@ const schema = mongoose.Schema({
   },
   details: {
     type: String,
-    required: true,
-    maxLength: 480,
+    required: true
   },
   category: {
     type: String,
@@ -30,6 +29,10 @@ const schema = mongoose.Schema({
   size: {
     type: String,
     required: true,
+  },
+  pattern: {
+    type: String,
+    required: true
   },
   colours: {
     type: [String],
