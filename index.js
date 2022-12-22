@@ -10,6 +10,7 @@ const bodyParserErrorHandler = require('express-body-parser-error-handler')
 const { urlencoded, json } = require('body-parser')
 
 const Users = require("./src/routes/user.routes.js");
+const Objects = require("./src/routes/object.routes.js");
 
 const app = express();
 const timeLimit = 60 * 60 * 24 * 10;
@@ -51,8 +52,9 @@ try {
 			app.use(express.json());
 			app.use(express.urlencoded({ extended: true }));
 
-			///toutes les URI concernants les utilisateurs decont commencer par /trouv/users
+			///toutes les URI concernants les utilisateurs devront commencer par /trouv/users
 			app.use(`/trouv/users`, Users);
+			app.use(`/trouv/objects`, Objects);
 
 			const port = process.env.PORT || 5555;
 			app.listen(port, () => {
