@@ -17,7 +17,7 @@ module.exports.register = register = async (req, res, next) => {
     $or: [{ mail: req.body.mail }, { username: req.body.username }],
   });
   if (uniqueness)
-    return res.status(400).json("Error | Username or Mail already taken");
+    return res.status(401).json("Error | Username or Mail already taken");
 
   /**
    * j'utilise regex afin de m'assurer que les mots de passes respectent un certain format:
