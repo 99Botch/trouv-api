@@ -13,8 +13,11 @@
  */
 const router = require("express").Router();
 const { tokenChk } = require('../config/validation.rules');
-const { register, login, logout } = require('../controllers/users.controller');
+const { register, login, logout, getSession } = require('../controllers/users.controller');
 
+router.get("/session", async function(req,res){
+    await getSession(req,res);
+});
 router.post("/register", async function(req,res){
     await register(req,res);
 });

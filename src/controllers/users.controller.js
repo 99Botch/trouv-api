@@ -5,6 +5,22 @@ const bcrypt = require("bcrypt");
 //j'explique en détails jwt dans le fichier validation.rules
 const jwt = require("jsonwebtoken");
 
+//GET SESSION -- rework de tokenCHeck afin de s'assurer que la session est validea fin de protéger certainne page client contre
+// des accès non autorisés. Voir validation.rules pour plus de détails
+module.exports.getSession = getSession = async (req, res, next) => {
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
+  const session = await Session.findOne({ token: token }, { _id: 0, token: 1 });
+
+  if (!token || !session)
+    return res.status(403).json({ message: "Error | Session do not exists" });
+
+  jwt.verify(token, process.env.API_KEY, async (err, user) => {
+    if (err) return res.status(403).json({ err: err.message });
+    else return res.status(204).json();
+  });
+};
+
 //  REGISTER
 module.exports.register = register = async (req, res, next) => {
   /**
@@ -162,7 +178,7 @@ module.exports.logout = logout = async (req, res, next) => {
       { _id: 1, user_id: 1 }
     );
 
-    if (token) res.status(200).json("You logged out");
+    if (token) res.status(204).json();
     else return res.status(404).json("Error | Not logged in");
   } catch (err) {
     return res.status(400).json({ message: err });
