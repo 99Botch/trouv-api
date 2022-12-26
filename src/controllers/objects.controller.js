@@ -60,7 +60,7 @@ module.exports.delObject = delObject = async (req, res, next) => {
       { _id: 1 }
     );
 
-    if (object) res.status(200).json("Object deleted successfully");
+    if (object) res.status(204).json();
     else return res.status(404).json("Error | Object could not be deleted");
   } catch (err) {
     return res.status(400).json({ message: err });
