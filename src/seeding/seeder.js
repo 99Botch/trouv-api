@@ -19,7 +19,6 @@ try {
     )
     .then(async () => {
       console.log("MONGO CONNECTION --> OPEN");
-      console.time()
       /**
        * Une fois la collection établis, je nétoie la BBD des objets d'avant, j'évite comme celà d'avoir trop de données.
        * Ceci fait, j'insert l'array 'seedDB' avec tout les objets qui viennent vont être créés.
@@ -27,7 +26,6 @@ try {
       await Objects.deleteMany({});
       await Objects.insertMany(seedDB);
       mongoose.connection.close;
-      console.timeEnd()
       console.log("MONGO CONNECTION --> CLOSE");
     })
     .catch((err) => {
@@ -54,10 +52,7 @@ function seedObjects() {
       details: faker.lorem.sentence(Math.floor(Math.random() * 100)),
       category: faker.random.word(),
       where: faker.address.city(),
-      when: faker.date.between(
-        "2022-01-01T00:00:00.000Z",
-        "2024-01-01T00:00:00.000Z"
-      ),
+      when: setDate(),
       pattern: faker.lorem.word(),
       size: setSize(),
       colours: setColours(),
@@ -66,6 +61,15 @@ function seedObjects() {
 
   return seedObjects;
 }
+
+//Pour la date, je garde le format américain tout en enlevant les information inutiles avec substring
+function setDate() {
+  let date = faker.date.between("2022-01-01", "2023-02-01")
+  date = JSON.stringify(date);
+
+  return date.substring(1,11);
+}
+
 
 //Pour le choix des tailles, je limite à quatre chois de manière aléatoire
 function setSize() {
