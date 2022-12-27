@@ -1,7 +1,7 @@
 /**
  * L'objectif du seeder est de peupler rapidement une base de données pour avoir de la data réaliste afin de travailler avec lors
  * du développement.
- * 
+ *
  * J'ai répliqué quelque peu index.js en ne gardant que le nécessaire pour crééer un connection avec la DDB.
  * Afin de m'aider, j'ai téléchargé la librarie faker.js qui peut générer du texte pour les attributs de nos objets.
  */
@@ -13,10 +13,7 @@ mongoose.set("strictQuery", false);
 
 try {
   mongoose
-    .connect(
-      LIEN_BDD,
-      { useNewUrlParser: true, useUnifiedTopology: true }
-    )
+    .connect(LIEN_BDD, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(async () => {
       console.log("MONGO CONNECTION --> OPEN");
       /**
@@ -42,7 +39,7 @@ function seedObjects() {
 
   /**
    * je génère 50 objets, j'héstime ne pas avoir besoin de plus
-   * 
+   *
    * la syntax de faker est simple: faker.valeurDeChoix.desReglesSupplementaires
    */
   for (let i = 0; i < 50; i++) {
@@ -50,10 +47,10 @@ function seedObjects() {
       addedBy: faker.name.fullName(),
       object: faker.commerce.productAdjective(),
       details: faker.lorem.sentence(Math.floor(Math.random() * 100)),
-      category: faker.random.word(),
+      category: setCategory(),
       where: faker.address.city(),
       when: setDate(),
-      pattern: faker.lorem.word(),
+      pattern: setPattern(),
       size: setSize(),
       colours: setColours(),
     });
@@ -64,18 +61,49 @@ function seedObjects() {
 
 //Pour la date, je garde le format américain tout en enlevant les information inutiles avec substring
 function setDate() {
-  let date = faker.date.between("2022-01-01", "2022-12-26")
+  let date = faker.date.between("2022-01-01", "2022-12-26");
   date = JSON.stringify(date);
 
-  return date.substring(1,11);
+  return date.substring(1, 11);
 }
-
 
 //Pour le choix des tailles, je limite à quatre chois de manière aléatoire
 function setSize() {
-  let sizes = ["petit", "moyen", "grand", "énorme"];
+  let sizes = ["Petit", "Moyen", "Grand", "Énorme"];
   let size = sizes[Math.floor(Math.random() * 4)];
   return size;
+}
+
+//voir setSize
+function setPattern() {
+  let patterns = [
+    "Couleur unie",
+    "Plusieurs couleurs",
+    "Rayures",
+    "A pois",
+    "Image en fond & photo(s)",
+  ];
+  let pattern = patterns[Math.floor(Math.random() * 5)];
+  return pattern;
+}
+
+//voir setSize
+function setCategory() {
+  let categories = [
+    "Portefeuille & argent",
+    "Papiers & documents officiel",
+    "Sac & bagages",
+    "Electronique",
+    "Affaires d'enfants",
+    "Bijoux & montres",
+    "Vêtements & accésoires",
+    "Animaux",
+    "Effets personnels",
+    "Accéssoires de sport",
+    "Divers",
+  ];
+  let category = categories[Math.floor(Math.random() * 11)];
+  return category;
 }
 
 /**
@@ -101,11 +129,11 @@ function setColours() {
     [arr[i], arr[j]] = [arr[j], arr[i]];
   }
 
-/**
-  * colours prendra alors jusqu'à trois couleurs différentes. slice() permet en effet de sélectionner les
-  * n premier élèments de 'arr' où n est déterminé par random 
- */  
-  let [colours, rand] = [[], Math.floor(Math.random() * 3)+1];
+  /**
+   * colours prendra alors jusqu'à trois couleurs différentes. slice() permet en effet de sélectionner les
+   * n premier élèments de 'arr' où n est déterminé par random
+   */
+  let [colours, rand] = [[], Math.floor(Math.random() * 3) + 1];
   colours = arr.slice(0, rand);
 
   return colours;
