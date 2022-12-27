@@ -1,7 +1,11 @@
 const router = require("express").Router();
 const { sessionChk } = require("../config/validation.rules");
-const { getObjects, addObject, updObject, delObject } = require("../controllers/objects.controller");
+const { getObject, getObjects, addObject, updObject, delObject } = require("../controllers/objects.controller");
 
+
+router.get("/:object_id", sessionChk, async function (req, res) {
+  await getObject(req, res);
+});
 router.get("", sessionChk, async function (req, res) {
   await getObjects(req, res);
 });

@@ -2,6 +2,19 @@
 
 const Object = require("../models/object.model");
 
+//  RETRIEVE OBJECT -- findById() va prendre le premier élément matchant l'object_id
+module.exports.getObject = getObject = async (req, res, _f) => {
+  try {
+    const object = await Object.findById({_id: req.params.object_id }, { __v: 0 });
+
+    if (!object) return res.status(404).json("Error | No object in db");
+    else return res.status(200).json(object);
+  } catch (err) {
+    return res.status(404).json({ message: err });
+  }
+};
+
+
 //  RETRIEVE OBJECTS -- find() va prendre tout les éléments object et les envoyer au client
 module.exports.getObjects = getObjects = async (req, res, _f) => {
   try {
