@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "start": "nodemon build/dist.js",
+    "build": "webpack"
   },
   "keywords": [],
   "author": "",
@@ -20,9 +22,11 @@
     "helmet": "^6.0.0",
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^6.4.0",
-    "nodemon": "^2.0.16"
+    "nodemon": "^2.0.16",
+    "webpack": "^5.75.0"
   },
   "devDependencies": {
-    "@faker-js/faker": "^7.6.0"
+    "@faker-js/faker": "^7.6.0",
+    "webpack-cli": "^5.0.1"
   }
 }
