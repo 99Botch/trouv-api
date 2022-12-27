@@ -64,7 +64,7 @@ function seedObjects() {
 
 //Pour la date, je garde le format américain tout en enlevant les information inutiles avec substring
 function setDate() {
-  let date = faker.date.between("2022-01-01", "2023-02-01")
+  let date = faker.date.between("2022-01-01", "2022-12-26")
   date = JSON.stringify(date);
 
   return date.substring(1,11);
