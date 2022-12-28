@@ -54,7 +54,7 @@ module.exports.updObject = updObject = async (req, res, next) => {
     if (!object) return res.status(404).json("Error | Could not find object");
 
     for (const key in await req.body) {
-      object[key] = req.body[key];
+      if(key != "addedBy") object[key] = req.body[key];
     }
     let upd = await object.save();
 
