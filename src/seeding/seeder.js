@@ -45,8 +45,8 @@ function seedObjects() {
   for (let i = 0; i < 50; i++) {
     seedObjects.push({
       addedBy: faker.name.fullName(),
-      object: faker.commerce.productAdjective(),
-      details: faker.lorem.sentence(Math.floor(Math.random() * 100)),
+      object: faker.commerce.productName(),
+      details: faker.commerce.productDescription(),
       category: setCategory(),
       where: faker.address.city(),
       when: setDate(),
